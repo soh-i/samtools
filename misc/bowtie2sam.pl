@@ -94,6 +94,7 @@ sub bowtie2sam_aux {
   push(@$s, "NM:i:" . (@t-7));
   push(@$s, "X$nm:i:" . ($t[6]+1));
   my $md = '';
+  my $mismatch_type = $t[7] //= "Perfectly_aligned";
   if ($t[7]) {
     $_ = $t[7];
     my $a = 0;
@@ -107,5 +108,6 @@ sub bowtie2sam_aux {
     $md = length($s->[9]);
   }
   push(@$s, "MD:Z:$md");
+  push(@$s, "XA:Z:$mismatch_type");
   return ($ret, $nm);
 }
